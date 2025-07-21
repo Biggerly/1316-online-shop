@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - 1316 Online Shop</title>
+  <link rel="stylesheet" href="css/styles.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+  <a href="index.html">
+    <img src="assets/images/logo.png" alt="1316 Logo" />
+  </a>
+</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="dashboard.html">Overview</a>
+      <a href="order-history.html">Order History</a>
+      <a href="profile.html">My Profile</a>
+      <a href="support.html">Support</a>
+      <div class="nav-auth-buttons">
+        <div class="nav-auth-buttons">
+    <button class="nav-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+    </nav>
+    <div class="theme-toggle" onclick="toggleDarkMode()">
+  <i id="theme-icon" class="fas fa-moon"></i>
+</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    
+</header>
+
+
+  <section class="dashboard">
+    <h1>Welcome, <span id="user-name">User</span> 👋</h1>
+    <p>Your email: <span id="user-email"></span></p>
+    <p><strong>WhatsApp:</strong> <span id="user-whatsapp"></span></p>
+  </section>
+    <h2>Quick Links</h2>
+<div class="quick-links">
+  <a href="#products" class="quick-link">
+    <i class="fas fa-store"></i> View Products
+  </a>
+  <a href="order-history.html" class="quick-link">
+    <i class="fas fa-box-open"></i> Order History
+  </a>
+  <a href="profile.html" class="quick-link">
+    <i class="fas fa-user-circle"></i> My Profile
+  </a>
+  <a href="support.html" class="quick-link">
+    <i class="fas fa-shopping-cart"></i> Support
+  </a>
+</div>
+
+   <!-- Products Section -->
+<section class="products" id="products">
+  <h2>Featured Products</h2>
+  <div class="product-row" id="productGrid">
+    <!-- Products will be injected here -->
+  </div>
+  <div id="productGrid"></div>
+</section>
+
+  <!-- Sticky Cart Button -->
+<div id="sticky-cart">
+  <div onclick="toggleCartPreview()" class="cart-button">
+    🛒 Cart (<span id="cart-count">0</span>)
+  </div>
+  <div id="cart-preview" class="cart-preview hidden">
+    <h4>Your Cart</h4>
+    <ul id="cart-items"></ul>
+    <a href="checkout.html" class="button">Checkout</a>
+  </div>
+</div>
+
+   <!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-about">
+      <h3>About 1316 Online Shop</h3>
+      <p>
+        A subsidiary of Concept 1316 Limited, registered under CAC with MEMART. We specialize in smart accessories like smart watches, AirPods, and boom boxes.
+      </p>
+    </div>
+  <!-- Contact Section -->
+  <div class="footer-social">
+  <h3>Follow Us</h3>
+  <div class="social-icons">
+    <a href="https://instagram.com/concept1316" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/concept1316limited" target="_blank"><i class="fab fa-facebook"></i></a>
+</div>
+ <a href="https://wa.me/234XXXXXXXXXX" target="_blank">
+    <i class="fab fa-whatsapp"></i> Chat with us on WhatsApp
+  </a>
+  </div>
+</div>
+<br>
+<div class="payment-methods">
+  <h3>We Accept</h3>
+  <div class="payment-icons">
+    <img src="assets/images/verve.png" alt="verve" title="verve" class="custom-icon" />
+    <img src="assets/images/paystack.png" alt="Paystack" title="Paystack" class="custom-icon" />
+    <img src="assets/images/flutterwave.png" alt="Flutterwave" title="Flutterwave" class="custom-icon" />
+  </div>
+</div>
+<div class="whatsapp-chat">
+<div class="footer-bottom">
+    <p>&copy; 2025 1316 Online Shop. All rights reserved.</p>
+  </div>
+</footer>
+
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    auth.onAuthStateChanged(async user => {
+      if (!user || !user.emailVerified) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      document.getElementById("user-name").textContent = user.displayName || "User";
+      document.getElementById("user-email").textContent = user.email;
+
+      const doc = await db.collection("users").doc(user.uid).get();
+      if (doc.exists) {
+        document.getElementById("user-whatsapp").textContent = doc.data().whatsapp || "N/A";
+      }
+    });
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      });
+    }
+
+    auth.onAuthStateChanged(async user => {
+  if (!user || !user.emailVerified) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  document.getElementById("user-name").textContent = user.displayName || "User";
+  document.getElementById("user-email").textContent = user.email;
+
+  const doc = await db.collection("users").doc(user.uid).get();
+  if (doc.exists) {
+    document.getElementById("user-whatsapp").textContent = doc.data().whatsapp || "N/A";
+  }
+
+  loadOrders(user.uid); // 👈 Load order history
+});
+async function loadOrders(uid) {
+  const ordersRef = db.collection("orders").where("uid", "==", uid).orderBy("createdAt", "desc");
+  const snapshot = await ordersRef.get();
+
+  const container = document.getElementById("order-history");
+  if (snapshot.empty) {
+    container.innerHTML = "<p>No orders yet.</p>";
+    return;
+  }
+
+  snapshot.forEach(doc => {
+    const order = doc.data();
+    const date = order.createdAt.toDate().toLocaleString();
+    let total = 0;
+
+    const itemsHtml = order.items.map(item => {
+      const itemTotal = item.quantity * item.price;
+      total += itemTotal;
+      return `<li>${item.name} × ${item.quantity} — ₦${itemTotal.toLocaleString()}</li>`;
+    }).join("");
+
+    container.innerHTML += `
+      <div class="order-card">
+        <p><strong>Date:</strong> ${date}</p>
+        <ul>${itemsHtml}</ul>
+        <p><strong>Total:</strong> ₦${total.toLocaleString()}</p>
+      </div>
+    `;
+  });
+}
+  </script>
+  <script src="js/app.js"></script>
+</body>
+</html>

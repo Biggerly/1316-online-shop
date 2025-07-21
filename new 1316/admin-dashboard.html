@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - 1316 Online Shop</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="1316 Logo" />
+    </div>
+    <div class="nav-auth-buttons">
+      <button class="nav-btn" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <section class="dashboard">
+    <h1>Admin Panel</h1>
+    <p>Welcome, <span id="admin-name">Admin</span></p>
+    <p><strong>Email:</strong> <span id="admin-email"></span></p>
+    <!-- Add admin tools here -->
+  </section>
+
+  <section>
+  <h2>All Orders</h2>
+<div id="all-orders"></div>
+  </section>
+
+  <section>
+    <h2>Manage Products</h2>
+<div id="product-list"></div>
+  </section>
+
+  <h2>Add New Product</h2>
+<div class="product-form">
+  <input type="text" id="new-name" placeholder="Product Name" />
+  <input type="number" id="new-price" placeholder="Price (₦)" />
+  <textarea id="new-images" placeholder="Enter image URLs separated by commas"></textarea>
+  <button onclick="addProduct()">Add Product</button>
+</div>
+<div id="product-list"></div>
+
+ <!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-about">
+      <h3>About 1316 Online Shop</h3>
+      <p>
+        A subsidiary of Concept 1316 Limited, registered under CAC with MEMART. We specialize in smart accessories like smart watches, AirPods, and boom boxes.
+      </p>
+    </div>
+  <!-- Contact Section -->
+  <div class="footer-social">
+  <h3>Follow Us</h3>
+  <div class="social-icons">
+    <a href="https://instagram.com/concept1316" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/concept1316limited" target="_blank"><i class="fab fa-facebook"></i></a>
+</div>
+ <a href="https://wa.me/234XXXXXXXXXX" target="_blank">
+    <i class="fab fa-whatsapp"></i> Chat with us on WhatsApp
+  </a>
+  </div>
+</div>
+<br>
+<div class="payment-methods">
+  <h3>We Accept</h3>
+  <div class="payment-icons">
+    <img src="assets/images/verve.png" alt="verve" title="verve" class="custom-icon" />
+    <img src="assets/images/paystack.png" alt="Paystack" title="Paystack" class="custom-icon" />
+    <img src="assets/images/flutterwave.png" alt="Flutterwave" title="Flutterwave" class="custom-icon" />
+  </div>
+</div>
+<div class="whatsapp-chat">
+<div class="footer-bottom">
+    <p>&copy; 2025 1316 Online Shop. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    auth.onAuthStateChanged(async user => {
+      if (!user || !user.emailVerified) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      const doc = await db.collection("users").doc(user.uid).get();
+      if (!doc.exists || doc.data().role !== "admin") {
+        window.location.href = "dashboard.html"; // Redirect non-admins
+        return;
+      }
+
+      document.getElementById("admin-name").textContent = user.displayName || "Admin";
+      document.getElementById("admin-email").textContent = user.email;
+    });
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      });
+    }
+
+    async function loadAllOrders() {
+  const snapshot = await db.collection("orders").orderBy("createdAt", "desc").get();
+  const container = document.getElementById("all-orders");
+
+  snapshot.forEach(doc => {
+    const order = doc.data();
+    const date = order.createdAt.toDate().toLocaleString();
+    let total = 0;
+
+    const itemsHtml = order.items.map(item => {
+      const itemTotal = item.quantity * item.price;
+      total += itemTotal;
+      return `<li>${item.name} × ${item.quantity} — ₦${itemTotal.toLocaleString()}</li>`;
+    }).join("");
+
+    container.innerHTML += `
+      <div class="order-card">
+        <p><strong>User ID:</strong> ${order.uid}</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <ul>${itemsHtml}</ul>
+        <p><strong>Total:</strong> ₦${total.toLocaleString()}</p>
+        <p><strong>Status:</strong> 
+          <select onchange="updateOrderStatus('${doc.id}', this.value)">
+            <option value="pending" ${order.status === "pending" ? "selected" : ""}>Pending</option>
+            <option value="shipped" ${order.status === "shipped" ? "selected" : ""}>Shipped</option>
+            <option value="delivered" ${order.status === "delivered" ? "selected" : ""}>Delivered</option>
+          </select>
+        </p>
+      </div>
+    `;
+  });
+}
+
+function updateOrderStatus(orderId, newStatus) {
+  db.collection("orders").doc(orderId).update({ status: newStatus })
+    .then(() => alert("Order status updated"))
+    .catch(err => alert("Error updating status: " + err.message));
+}
+
+async function loadProducts() {
+  const snapshot = await db.collection("products").get();
+  const container = document.getElementById("product-list");
+  container.innerHTML = "";
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+
+    const imagesHtml = product.images?.map(url => `<img src="${url}" class="thumb" />`).join("") || "";
+
+    container.innerHTML += `
+      <div class="product-card">
+        <input type="text" value="${product.name}" id="name-${doc.id}" />
+        <input type="number" value="${product.price}" id="price-${doc.id}" />
+        <input type="text" value="${product.image}" id="image-${doc.id}" />
+        <button onclick="updateProduct('${doc.id}')">Update</button>
+        <button onclick="deleteProduct('${doc.id}')">Delete</button>
+      </div>
+    `;
+  });
+}
+
+function addProduct() {
+  const name = document.getElementById("new-name").value.trim();
+  const price = parseInt(document.getElementById("new-price").value);
+  const rawImages = document.getElementById("new-images").value.trim();
+
+  if (!name || !price || !rawImages) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  const imageUrls = rawImages.split(",").map(url => url.trim()).filter(url => url);
+
+  db.collection("products").add({ name, price, images: imageUrls })
+    .then(() => {
+      alert("Product added!");
+      document.getElementById("new-name").value = "";
+      document.getElementById("new-price").value = "";
+      document.getElementById("new-images").value = "";
+      loadProducts();
+    })
+
+    .catch(err => alert("Error: " + err.message));
+}
+  </script>
+  
+</body>
+</html>

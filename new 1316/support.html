@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - 1316 Online Shop</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+  <a href="index.html">
+    <img src="assets/images/logo.png" alt="1316 Logo" />
+  </a>
+</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="dashboard.html">Overview</a>
+      <a href="order-history.html">Order History</a>
+      <a href="profile.html">My Profile</a>
+      <a href="support.html">Support</a>
+      <div class="nav-auth-buttons">
+        <div class="nav-auth-buttons">
+    <button class="nav-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+    </nav>
+    <div class="theme-toggle" onclick="toggleDarkMode()">
+  <i id="theme-icon" class="fas fa-moon"></i>
+</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    
+</header>
+
+  <section class="support-section">
+    <h1>🛟 Need Help?</h1>
+    <p>We’re here to assist you! Fill out the form and our support team will get back to you shortly.</p>
+
+    <form id="support-form">
+      <label>Name:
+        <input type="text" id="support-name" placeholder="Your name" required />
+      </label>
+      <label>Email:
+        <input type="email" id="support-email" placeholder="Your email" required />
+      </label>
+      <label>Message:
+        <textarea id="support-message" placeholder="Describe your issue or question..." required></textarea>
+      </label>
+      <button type="submit" class="hero-btn"> Send Message</button>
+    </form>
+    <p id="support-status"></p>
+  </section>
+
+  <!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-about">
+      <h3>About 1316 Online Shop</h3>
+      <p>
+        A subsidiary of Concept 1316 Limited, registered under CAC with MEMART. We specialize in smart accessories like smart watches, AirPods, and boom boxes.
+      </p>
+    </div>
+  <!-- Contact Section -->
+  <div class="footer-social">
+  <h3>Follow Us</h3>
+  <div class="social-icons">
+    <a href="https://instagram.com/concept1316" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/concept1316limited" target="_blank"><i class="fab fa-facebook"></i></a>
+</div>
+ <a href="https://wa.me/234XXXXXXXXXX" target="_blank">
+    <i class="fab fa-whatsapp"></i> Chat with us on WhatsApp
+  </a>
+  </div>
+</div>
+<br>
+<div class="payment-methods">
+  <h3>We Accept</h3>
+  <div class="payment-icons">
+    <img src="assets/images/verve.png" alt="verve" title="verve" class="custom-icon" />
+    <img src="assets/images/paystack.png" alt="Paystack" title="Paystack" class="custom-icon" />
+    <img src="assets/images/flutterwave.png" alt="Flutterwave" title="Flutterwave" class="custom-icon" />
+  </div>
+</div>
+<div class="whatsapp-chat">
+<div class="footer-bottom">
+    <p>&copy; 2025 1316 Online Shop. All rights reserved.</p>
+  </div>
+</footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

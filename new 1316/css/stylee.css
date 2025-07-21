@@ -1,0 +1,698 @@
+:root {
+  --bg-color: rgba(255,255,255,0.2);
+  --text-color: #333;
+  --accent-color: #1316ab;
+  --card-bg: rgba(255,255,255,0.3);
+  --btn-bg: #1316ab;
+  --btn-text: #fff;
+}
+
+body.dark-mode {
+  --bg-color: rgba(19,22,171,0.2);
+  --text-color: #eee;
+  --accent-color: #00aaff;
+  --card-bg: rgba(0,0,0,0.3);
+    --btn-bg: #00aaff;
+  --btn-text: #000;
+}
+
+:root {
+  --bg-color: rgba(255,255,255,0.2);
+  --text-color: #333;
+  --accent-color: #1316ab;
+  --card-bg: rgba(255,255,255,0.3);
+}
+
+body.dark-mode {
+  --bg-color: rgba(19,22,171,0.2);
+  --text-color: #eee;
+  --accent-color: #121c21;
+  --card-bg: rgba(0,0,0,0.3);
+}
+
+.button {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+#theme-icon {
+  transition: transform 0.3s ease;
+}
+
+#theme-icon:hover {
+  transform: rotate(20deg);
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--bg-color);
+  backdrop-filter: blur(100px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  height: 40px;
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  font-size: 20px;
+  color: var(--accent-color);
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: var(--bg-color);
+}
+
+.hero h1 {
+  font-size: 48px;
+  color: var(--accent-color);
+}
+
+.hero p {
+  font-size: 20px;
+}
+
+/* Products */
+.products {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+#sticky-cart {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--accent-color);
+  color: var(--btn-text);
+  padding: 12px 18px;
+  border-radius: 50px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.cart-button {
+  cursor: pointer;
+}
+
+.cart-preview {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  background: var(--card-bg);
+  color: var(--text-color);
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  backdrop-filter: blur(5px);
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.cart-preview h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--accent-color);
+}
+
+.cart-preview ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.cart-preview li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.cart-preview .button {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* About & Contact */
+.about, .contact {
+  padding: 60px 20px;
+  background: var(--bg-color);
+  backdrop-filter: blur(5px);
+  margin-top: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.about h2, .contact h2 {
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about p, .contact p, .contact ul {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact li {
+  margin: 10px 0;
+}
+
+.contact a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--bg-color);
+  backdrop-filter: blur(10px);
+  padding: 40px 20px;
+  color: var(--text-color);
+  margin-top: 60px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-about, .footer-contact, .footer-social, .payment-methods {
+  flex: 1;
+  min-width: 250px;
+}
+
+.site-footer h3 {
+  color: var(--accent-color);
+  margin-bottom: 15px;
+}
+
+.site-footer p, .site-footer li {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.site-footer a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+/* Social Icons */
+.footer-social .social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.footer-social i {
+  font-size: 24px;
+  color: var(--accent-color);
+  transition: transform 0.3s ease;
+}
+
+.footer-social i:hover {
+  transform: scale(1.2);
+}
+
+/* WhatsApp Chat */
+.whatsapp-chat a {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 16px;
+  color: #25D366;
+  text-decoration: none;
+}
+
+.whatsapp-chat i {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+/* Payment Icons */
+.payment-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.payment-icons i {
+  font-size: 28px;
+  color: var(--accent-color);
+}
+
+.payment-icons .custom-icon {
+  height: 28px;
+  width: auto;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+  transition: transform 0.3s ease;
+}
+
+.payment-icons .custom-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: var(--bg-color);
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    font-size: 28px;
+    color: var(--accent-color);
+    cursor: pointer;
+  }
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--bg-color);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  font-size: 20px;
+  color: var(--accent-color);
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: var(--bg-color);
+}
+
+.hero h1 {
+  font-size: 48px;
+  color: var(--accent-color);
+}
+
+.hero p {
+  font-size: 20px;
+}
+
+/* Products */
+.products {
+  padding: 20px 20px 60px 20px;
+  text-align: center;
+}
+
+.product-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 20px 20px;
+  margin-top: 30px;
+}
+
+.product-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .product-card {
+  box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+}
+
+/* About & Contact */
+.about, .contact {
+  padding: 60px 20px;
+  background: var(--bg-color);
+  backdrop-filter: blur(5px);
+  margin-top: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.about h2, .contact h2 {
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about p, .contact p, .contact ul {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact li {
+  margin: 10px 0;
+}
+
+.contact a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--bg-color);
+  backdrop-filter: blur(10px);
+  padding: 40px 20px;
+  color: var(--text-color);
+  margin-top: 60px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-about, .footer-contact, .footer-social, .payment-methods {
+  flex: 1;
+  min-width: 250px;
+}
+
+.site-footer h3 {
+  color: var(--accent-color);
+  margin-bottom: 15px;
+}
+
+.site-footer p, .site-footer li {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.site-footer a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+/* Social Icons */
+.footer-social .social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.footer-social i {
+  font-size: 24px;
+  color: var(--accent-color);
+  transition: transform 0.3s ease;
+}
+
+.footer-social i:hover {
+  transform: scale(1.2);
+}
+
+/* WhatsApp Chat */
+.whatsapp-chat a {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 16px;
+  color: #25D366;
+  text-decoration: none;
+}
+
+.whatsapp-chat i {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+/* Payment Icons */
+.payment-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.payment-icons i {
+  font-size: 28px;
+  color: var(--accent-color);
+}
+
+.payment-icons .custom-icon {
+  height: 28px;
+  width: auto;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+  transition: transform 0.3s ease;
+}
+
+.payment-icons .custom-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: var(--bg-color);
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    font-size: 28px;
+    color: var(--accent-color);
+    cursor: pointer;
+  }
+}
+
+/*check out page*/
+.checkout-section {
+  padding: 60px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
+  color: var(--text-color);
+}
+
+.checkout-section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.checkout-section li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.checkout-section p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+

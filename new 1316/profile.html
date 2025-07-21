@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - 1316 Online Shop</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+  <a href="index.html">
+    <img src="assets/images/logo.png" alt="1316 Logo" />
+  </a>
+</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="dashboard.html">Overview</a>
+      <a href="order-history.html">Order History</a>
+      <a href="profile.html">My Profile</a>
+      <a href="support.html">Support</a>
+      <div class="nav-auth-buttons">
+        <div class="nav-auth-buttons">
+    <button class="nav-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+    </nav>
+    <div class="theme-toggle" onclick="toggleDarkMode()">
+  <i id="theme-icon" class="fas fa-moon"></i>
+</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    
+</header>
+
+  <section class="profile-section">
+    <h1>👤 My Profile</h1>
+    <form id="profile-form">
+      <label>Full Name:
+        <input type="text" id="profile-name" placeholder="Enter your name" />
+      </label>
+      <label>Email:
+        <input type="email" id="profile-email" disabled />
+      </label>
+      <label>WhatsApp Number:
+        <input type="text" id="profile-whatsapp" placeholder="08012345678" />
+      </label>
+      <label>Delivery Address:
+        <textarea id="profile-address" placeholder="Enter delivery address"></textarea>
+      </label>
+      <button type="submit" class="hero-btn"> Save Changes</button>
+    </form>
+    <p id="profile-status"></p>
+  </section>
+
+  <!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-about">
+      <h3>About 1316 Online Shop</h3>
+      <p>
+        A subsidiary of Concept 1316 Limited, registered under CAC with MEMART. We specialize in smart accessories like smart watches, AirPods, and boom boxes.
+      </p>
+    </div>
+  <!-- Contact Section -->
+  <div class="footer-social">
+  <h3>Follow Us</h3>
+  <div class="social-icons">
+    <a href="https://instagram.com/concept1316" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/concept1316limited" target="_blank"><i class="fab fa-facebook"></i></a>
+</div>
+ <a href="https://wa.me/234XXXXXXXXXX" target="_blank">
+    <i class="fab fa-whatsapp"></i> Chat with us on WhatsApp
+  </a>
+  </div>
+</div>
+<br>
+<div class="payment-methods">
+  <h3>We Accept</h3>
+  <div class="payment-icons">
+    <img src="assets/images/verve.png" alt="verve" title="verve" class="custom-icon" />
+    <img src="assets/images/paystack.png" alt="Paystack" title="Paystack" class="custom-icon" />
+    <img src="assets/images/flutterwave.png" alt="Flutterwave" title="Flutterwave" class="custom-icon" />
+  </div>
+</div>
+<div class="whatsapp-chat">
+<div class="footer-bottom">
+    <p>&copy; 2025 1316 Online Shop. All rights reserved.</p>
+  </div>
+</footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+
+  <script>
+    // PROFILE PAGE
+
+const db = firebase.firestore();
+const auth = firebase.auth();
+const form = document.getElementById("profile-form");
+
+auth.onAuthStateChanged(async user => {
+  if (!user) return;
+
+  const doc = await db.collection("users").doc(user.uid).get();
+  if (doc.exists) {
+    const data = doc.data();
+    document.getElementById("profile-name").value = data.name || "";
+    document.getElementById("profile-email").value = user.email;
+    document.getElementById("profile-whatsapp").value = data.whatsapp || "";
+    document.getElementById("profile-address").value = data.address || "";
+  }
+});
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await db.collection("users").doc(user.uid).update({
+    name: document.getElementById("profile-name").value.trim(),
+    whatsapp: document.getElementById("profile-whatsapp").value.trim(),
+    address: document.getElementById("profile-address").value.trim(),
+  });
+
+  document.getElementById("profile-status").textContent = "Profile updated successfully!";
+});
+
+// SUPPORT PAGE
+document.getElementById("support-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("support-name").value.trim();
+  const email = document.getElementById("support-email").value.trim();
+  const message = document.getElementById("support-message").value.trim();
+
+  // TODO: Replace with Firebase or email logic
+  console.log("Support Request:", { name, email, message });
+
+  document.getElementById("support-status").textContent = "✅ Message sent! We'll contact you soon.";
+  this.reset();
+});
+  </script>
+  <script src="js/app.js"></script>
+</body>
+</html>

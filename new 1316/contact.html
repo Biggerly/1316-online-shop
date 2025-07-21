@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1316</title>
+    <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+<body>
+     <!-- Navbar -->
+   
+  <header class="navbar">
+    <div class="logo">
+  <a href="index.html">
+    <img src="assets/images/logo.png" alt="1316 Logo" />
+  </a>
+</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="#products">Products</a>
+      <a href="#footer">About</a>
+      <a href="contact.html">Contact</a>
+      <div class="nav-auth-buttons">
+  <button class="nav-btn" onclick="openAuthModal()">Login</button>
+  <button class="nav-btn" onclick="showRegister(); openAuthModal()">Register</button>
+</div>
+    </nav>
+    <div class="theme-toggle" onclick="toggleDarkMode()">
+  <i id="theme-icon" class="fas fa-moon"></i>
+</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    
+  </header>
+
+  <section class="contact-page">
+    <h1> Contact Us</h1>
+    <p>Have a question, suggestion, or issue? We're happy to hear from you!</p>
+
+    <form id="contact-form">
+      <label>Your Name:
+        <input type="text" id="contact-name" placeholder="John Doe" required />
+      </label>
+      <label>Your Email:
+        <input type="email" id="contact-email" placeholder="john@example.com" required />
+      </label>
+      <label>Message:
+        <textarea id="contact-message" placeholder="Type your message here..." required></textarea>
+      </label>
+      <button type="submit" class="hero-btn"> Send Message</button>
+    </form>
+
+    <div class="contact-extra">
+      <h3>Other Ways to Reach Us</h3>
+      <p><strong>Email:</strong> 1316consulting@gmail.com</p>
+      <p><strong>WhatsApp:</strong> +234 812 345 6789</p>
+      <p><strong>Instagram:</strong> @1316onlineshop</p>
+    </div>
+
+    <p id="contact-status"></p>
+  </section>
+
+   <!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-about">
+      <h3>About 1316 Online Shop</h3>
+      <p>
+        A subsidiary of Concept 1316 Limited, registered under CAC with MEMART. We specialize in smart accessories like smart watches, AirPods, and boom boxes.
+      </p>
+    </div>
+  <!-- Contact Section -->
+  <div class="footer-social">
+  <h3>Follow Us</h3>
+  <div class="social-icons">
+    <a href="https://instagram.com/concept1316" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/concept1316limited" target="_blank"><i class="fab fa-facebook"></i></a>
+</div>
+ <a href="https://wa.me/234XXXXXXXXXX" target="_blank">
+    <i class="fab fa-whatsapp"></i> Chat with us on WhatsApp
+  </a>
+  </div>
+</div>
+<br>
+<div class="payment-methods">
+  <h3>We Accept</h3>
+  <div class="payment-icons">
+    <img src="assets/images/verve.png" alt="verve" title="verve" class="custom-icon" />
+    <img src="assets/images/paystack.png" alt="Paystack" title="Paystack" class="custom-icon" />
+    <img src="assets/images/flutterwave.png" alt="Flutterwave" title="Flutterwave" class="custom-icon" />
+  </div>
+</div>
+<div class="whatsapp-chat">
+<div class="footer-bottom">
+    <p>&copy; 2025 1316 Online Shop. All rights reserved.</p>
+  </div>
+</footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
