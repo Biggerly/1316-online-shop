@@ -1,0 +1,82 @@
+/* Base reset and variables */
+*,*::before,*::after{box-sizing:border-box}
+html{line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:root{
+  --bg:#ffffff;
+  --fg:#0f172a; /* slate-900 */
+  --muted:#475569; /* slate-600 */
+  --border:#e5e7eb; /* gray-200 */
+  --card:#ffffff;
+  --accent:#0ea5e9; /* sky-500 */
+  --accent-600:#0284c7; /* sky-600 */
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.06);
+  --radius:14px;
+  --container:72rem;
+  --font-sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0b0f1a;--fg:#e5e7eb;--muted:#94a3b8;--border:#1f2937;--card:#0f172a;--shadow:none}
+}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans)}
+img{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Layout */
+.container{max-width:var(--container);margin-inline:auto;padding:0 1rem}
+.header{position:sticky;top:0;z-index:50;background:color-mix(in oklab, var(--bg), transparent 0%);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav a{color:var(--fg);opacity:.9}
+.nav .brand{display:flex;align-items:center;gap:.5rem;font-weight:600}
+.nav .links{display:none;gap:1rem}
+.nav .menu-btn{display:inline-flex;align-items:center;justify-content:center;height:36px;width:36px;border:1px solid var(--border);border-radius:10px;background:transparent}
+@media (min-width:768px){.nav .links{display:flex}.nav .menu-btn{display:none}}
+.mobile-menu{display:none;border-top:1px solid var(--border)}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:.75rem 0;border-bottom:1px solid var(--border);color:var(--fg)}
+
+/* Hero */
+.hero{padding:2rem 0 1.25rem}
+.hero-title{font-size:clamp(1.25rem,1rem+2vw,2rem);font-weight:700;margin:0 0 .5rem}
+.hero-sub{color:var(--muted);font-size:.95rem;margin:0}
+
+/* Grids & Cards */
+.grid{display:grid;gap:1rem}
+@media (min-width:640px){.grid.sm-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card .card-body{padding:1rem}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:999px;border:1px solid var(--border);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+
+/* Typography */
+.h1{font-size:clamp(1.5rem,1.1rem+2.2vw,2.25rem);font-weight:700;margin:.25rem 0 .75rem}
+.h2{font-size:1.25rem;font-weight:700;margin:.25rem 0 .5rem}
+.p{color:var(--muted);font-size:.95rem;margin:.25rem 0}
+.prose{line-height:1.75}
+.prose p{margin:.75rem 0;color:var(--fg)}
+.prose h1,.prose h2,.prose h3{margin:1.25rem 0 .5rem}
+.prose ul{padding-left:1.2rem}
+.prose li{margin:.35rem 0}
+.prose img{border-radius:12px}
+
+/* Buttons & Inputs */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem .9rem;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--fg);font-weight:600}
+.btn:hover{background:color-mix(in oklab, var(--card), black 2%)}
+.btn-primary{background:var(--accent);border-color:transparent;color:white}
+.btn-primary:hover{background:var(--accent-600)}
+.input{width:100%;padding:.6rem .75rem;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--fg)}
+.text-xs{font-size:.8rem;color:var(--muted)}
+
+/* Footer */
+.footer{margin-top:2rem;border-top:1px solid var(--border);padding:1.25rem 0}
+.footer .grid{align-items:flex-start}
+.footer a{color:inherit;opacity:.9}
+
+/* Cookie banner */
+.cookie{position:fixed;inset:auto 1rem 1rem 1rem;z-index:60;display:none}
+.cookie.show{display:block}
+.cookie .wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:1rem;display:flex;gap:1rem;align-items:center}
+.cookie .wrap p{margin:0}
+.cookie .wrap .actions{margin-left:auto;display:flex;gap:.5rem}
+
+/* Ad placeholder */
+.ad{border:1px dashed var(--border);border-radius:12px;padding:1rem;text-align:center;color:var(--muted);font-size:.9rem}

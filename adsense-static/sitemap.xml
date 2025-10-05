@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://example.com/</loc></url>
+  <url><loc>https://example.com/about.html</loc></url>
+  <url><loc>https://example.com/contact.html</loc></url>
+  <url><loc>https://example.com/privacy.html</loc></url>
+  <url><loc>https://example.com/terms.html</loc></url>
+  <url><loc>https://example.com/disclaimer.html</loc></url>
+  <url><loc>https://example.com/articles/</loc></url>
+  <url><loc>https://example.com/articles/how-to-check-data-balance.html</loc></url>
+  <url><loc>https://example.com/articles/best-cheap-side-hustles.html</loc></url>
+  <url><loc>https://example.com/articles/save-data-android.html</loc></url>
+  <url><loc>https://example.com/articles/fix-failed-bank-transfers.html</loc></url>
+</urlset>
