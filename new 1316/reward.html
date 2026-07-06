@@ -313,6 +313,35 @@
   .stock-bar .fill{ height:100%; width:78%; background:linear-gradient(90deg, var(--alert), var(--brass)); }
   .stock-label{ font-size:12.5px; color:var(--paper-dim); font-family:'Space Mono',monospace; display:flex; justify-content:space-between; margin-bottom:22px; font-weight:700;}
 
+  /* ---------- Order form ---------- */
+  .order-form{ text-align:left; display:flex; flex-direction:column; gap:16px; }
+  .order-form label{ display:flex; flex-direction:column; gap:7px; font-size:13px; font-weight:700; color:var(--paper); font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:0.03em; }
+  .order-form input, .order-form textarea, .order-form select{
+    font-family:'Manrope', sans-serif; font-size:16px; font-weight:500; text-transform:none;
+    padding:14px 14px; border-radius:6px; border:1.5px solid var(--line); background:#fff; color:var(--paper);
+  }
+  .order-form input:focus, .order-form textarea:focus, .order-form select:focus{ outline:none; border-color:var(--alert); }
+  .order-form textarea{ min-height:78px; resize:vertical; }
+  .order-form button{ margin-top:6px; }
+
+  /* ---------- Upsell screen ---------- */
+  .upsell-box{
+    max-width:640px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:12px;
+    padding:44px 30px; text-align:center;
+  }
+  .upsell-thanks{ font-size:34px; color:var(--paper); }
+  .upsell-wait{ font-size:26px; color:var(--paper); margin:18px 0 22px; font-family:'Fraunces',serif; }
+  .upsell-red{ color:var(--alert); font-weight:800; font-size:21px; line-height:1.35; margin-bottom:22px; }
+  .upsell-body{ color:var(--paper); font-size:17px; line-height:1.6; margin-bottom:30px; }
+  .upsell-offer{
+    display:flex; align-items:center; justify-content:space-between; gap:16px; text-align:left;
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin-bottom:22px;
+  }
+  .upsell-offer b{ display:block; font-size:16px; color:var(--paper); }
+  .upsell-offer span{ display:block; font-size:13.5px; color:var(--paper-dim); margin-top:4px; }
+  .upsell-price{ font-family:'Space Mono',monospace; font-weight:800; font-size:19px; color:var(--alert); flex:none; }
+  .block-btn{ display:block; width:100%; text-align:center; margin-top:14px; padding:16px; border-radius:4px; background:#fff; border:2px solid var(--paper); color:var(--paper); font-weight:700; cursor:pointer; font-size:14.5px; }
+
   /* ---------- FAQ ---------- */
   .faq{ max-width:760px; margin:0 auto; }
   .faq-item{ border-bottom:1px solid var(--line); padding:20px 0; }
@@ -603,7 +632,7 @@
 <!-- ORDER -->
 <section class="order-section" id="order">
   <div class="wrap">
-    <div class="order-box">
+    <div class="order-box" id="orderBox">
       <img src="1010157.jpg" alt="Poedagar Glass Face watch boxed" class="order-img">
       <span class="eyebrow">Final step</span>
       <h2 style="font-size:26px; margin-top:8px;">Get your Poedagar Glass Face Set</h2>
@@ -620,8 +649,36 @@
         <div class="sticker rot-r" style="width:96px; height:96px; font-size:9.5px;">MONEY<b style="font-size:18px;">BACK</b>GUARANTEE</div>
       </div>
 
-      <a class="btn block" href="https://wa.me/2340000000000?text=Hi%2C%20I%27d%20like%20to%20order%20the%20Poedagar%20Glass%20Face%20Set%20for%20%E2%82%A685%2C000" target="_blank">Order on WhatsApp →</a>
-      <p style="font-size:11.5px; color:var(--paper-dim); margin-top:14px;">Replace the WhatsApp number above with your own before publishing.</p>
+      <form id="orderForm" class="order-form">
+        <label>Full Name
+          <input type="text" name="fullName" required placeholder="e.g. Ibrahim Musa">
+        </label>
+        <label>Phone Number (WhatsApp)
+          <input type="tel" name="phone" required placeholder="e.g. 0803 123 4567">
+        </label>
+        <label>Delivery Address
+          <textarea name="address" required placeholder="House number, street, area"></textarea>
+        </label>
+        <label>State / City
+          <input type="text" name="state" required placeholder="e.g. Lagos">
+        </label>
+        <label>Quantity
+          <select name="quantity">
+            <option value="1">1 set</option>
+            <option value="2">2 sets</option>
+            <option value="3">3 sets</option>
+          </select>
+        </label>
+        <button type="submit" class="btn block">Submit My Order →</button>
+      </form>
+      <p style="font-size:11.5px; color:var(--paper-dim); margin-top:14px;">Orders are sent straight to WhatsApp for confirmation.</p>
+    </div>
+
+    <!-- POST SUBMIT CONFIRMATION -->
+    <div class="upsell-box" id="upsellBox" style="display:none;">
+      <h2 class="upsell-thanks">Thank You!!</h2>
+      <p class="upsell-body">Your order details are ready. Tap below to send them to us on WhatsApp and we will confirm your delivery.</p>
+      <button class="btn block" id="confirmOrderBtn">Send My Order On WhatsApp →</button>
     </div>
   </div>
 </section>
@@ -733,6 +790,57 @@
     viewerEl.textContent = next;
   }
   setInterval(nudgeViewers, 4000);
+
+  // ---------- Order form -> WhatsApp handoff ----------
+  // Replace WHATSAPP_NUMBER with your real number (country code, no +, no spaces)
+  // before publishing, e.g. "2348031234567".
+  const WHATSAPP_NUMBER = "2348166432209";
+
+  const orderForm = document.getElementById('orderForm');
+  const orderBox = document.getElementById('orderBox');
+  const upsellBox = document.getElementById('upsellBox');
+  let lastOrder = null;
+
+  orderForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const data = new FormData(orderForm);
+    lastOrder = {
+      fullName: data.get('fullName').trim(),
+      phone: data.get('phone').trim(),
+      address: data.get('address').trim(),
+      state: data.get('state').trim(),
+      quantity: data.get('quantity')
+    };
+    orderBox.style.display = 'none';
+    upsellBox.style.display = 'block';
+    upsellBox.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+
+  function buildMessage(){
+    if(!lastOrder) return "";
+    const qty = lastOrder.quantity;
+    const setWord = qty > 1 ? "sets" : "set";
+    let lines = [
+      "Hi, I would like to order the Poedagar Glass Face Watch.",
+      "",
+      "Name: " + lastOrder.fullName,
+      "Phone: " + lastOrder.phone,
+      "Address: " + lastOrder.address,
+      "State: " + lastOrder.state,
+      "Quantity: " + qty + " " + setWord + " at N85,000 each"
+    ];
+    return lines.join("\n");
+  }
+
+  function sendToWhatsApp(){
+    const text = buildMessage();
+    const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
+    window.open(url, '_blank');
+  }
+
+  document.getElementById('confirmOrderBtn').addEventListener('click', function(){
+    sendToWhatsApp();
+  });
 </script>
 
 </body>
