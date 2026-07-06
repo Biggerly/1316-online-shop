@@ -207,10 +207,17 @@
 
   /* ---------- Reasons ---------- */
   .reasons{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
-  .reason{ background:var(--panel); padding:32px 26px; }
-  .reason .num{ font-family:'Space Mono',monospace; color:var(--brass); font-size:12px; }
-  .reason h3{ font-size:19px; margin:10px 0 8px; color:var(--paper); }
-  .reason p{ color:var(--paper-dim); font-size:15.5px; line-height:1.6; }
+  .reason{ background:var(--panel); padding:0 0 32px; }
+  .reason-img{ width:100%; aspect-ratio:16/10; object-fit:cover; margin-bottom:20px; }
+  .reason:nth-child(1) .reason-img{ object-position:20% 40%; }
+  .reason:nth-child(2) .reason-img{ object-position:60% 30%; }
+  .reason:nth-child(3) .reason-img{ object-position:center; }
+  .reason:nth-child(4) .reason-img{ object-position:80% 60%; }
+  .reason:nth-child(5) .reason-img{ object-position:40% 70%; }
+  .reason:nth-child(6) .reason-img{ object-position:30% 20%; }
+  .reason .num{ font-family:'Space Mono',monospace; color:var(--brass); font-size:12px; padding:0 26px; }
+  .reason h3{ font-size:19px; margin:10px 26px 8px; color:var(--paper); }
+  .reason p{ color:var(--paper-dim); font-size:15.5px; line-height:1.6; padding:0 26px; }
 
   /* ---------- Bundle ---------- */
   .bundle-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
@@ -227,7 +234,15 @@
     display:flex; align-items:center; justify-content:center; flex:none; color:var(--brass-bright); font-size:15px;
   }
   .bundle-list b{ display:block; color:var(--paper); font-size:17px; }
+  .bundle-list b .incl{
+    font-style:normal; font-family:'Space Mono',monospace; font-size:10.5px; font-weight:800;
+    color:var(--good); background:rgba(44,122,75,0.12); border:1px solid rgba(44,122,75,0.3);
+    padding:3px 8px; border-radius:20px; margin-left:10px; text-transform:uppercase; vertical-align:middle;
+  }
   .bundle-list span{ color:var(--paper-dim); font-size:15px; }
+
+  .included-strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:30px; }
+  .included-strip img{ border-radius:8px; box-shadow:0 14px 30px rgba(0,0,0,0.16); aspect-ratio:4/5; object-fit:cover; }
 
   .value-card{
     background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:26px; margin-top:24px;
@@ -270,6 +285,18 @@
   }
   .guarantee h3{ font-size:24px; margin-bottom:10px; }
   .guarantee p{ color:var(--paper-dim); font-size:16px; line-height:1.65; }
+  .guarantee-strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:28px; }
+  .guarantee-strip img{ border-radius:8px; aspect-ratio:1/1; object-fit:cover; box-shadow:0 10px 22px rgba(0,0,0,0.14); }
+
+  /* ---------- Full width image banner ---------- */
+  .banner{ position:relative; padding:0; height:420px; overflow:hidden; }
+  .banner img{ width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+  .banner-overlay{
+    position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.65));
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:22px; padding:24px;
+  }
+  .banner-overlay h2{ color:#fff; font-size:38px; max-width:16ch; }
+  @media (max-width:860px){ .banner{ height:320px; } .banner-overlay h2{ font-size:28px; } .guarantee-strip{ grid-template-columns:repeat(2,1fr); } }
 
   /* ---------- Order ---------- */
   .order-section{ background:var(--panel); border-top:1px solid var(--line); }
@@ -277,6 +304,7 @@
     max-width:640px; margin:0 auto; background:var(--panel-2); border:1px solid var(--line); border-radius:12px; padding:38px;
     text-align:center;
   }
+  .order-img{ width:180px; height:180px; object-fit:cover; border-radius:10px; margin:0 auto 20px; box-shadow:0 14px 30px rgba(0,0,0,0.18); }
   .order-box .price-block{ margin:18px 0 8px; }
   .order-box .now{ font-family:'Space Mono',monospace; font-size:40px; font-weight:700; color:var(--brass-bright); }
   .order-box .was{ font-family:'Space Mono',monospace; font-size:16px; color:var(--paper-dim); text-decoration:line-through; margin-left:10px;}
@@ -410,31 +438,37 @@
     </div>
     <div class="reasons">
       <div class="reason">
+        <img class="reason-img" src="1010154.jpg" alt="Poedagar Glass Face watch">
         <div class="num">01</div>
         <h3>Mirror-coated jump dial</h3>
         <p>Instead of hands, the time jumps up in clean LED style digits behind a mirror polished, colour shifting glass face. It reads like a design object, not a stock dial.</p>
       </div>
       <div class="reason">
+        <img class="reason-img" src="1010156.jpg" alt="Poedagar Glass Face watch">
         <div class="num">02</div>
         <h3>PVD black coating</h3>
         <p>The same coating process used on premium stainless steel, so the case and bracelet resist fading, peeling and rust far longer than standard plating.</p>
       </div>
       <div class="reason">
+        <img class="reason-img" src="1010157.jpg" alt="Poedagar Glass Face watch">
         <div class="num">03</div>
         <h3>3ATM water resistance</h3>
         <p>Handles hand-washing, rain and splashes without a second thought. Not built for swimming, but built for daily life.</p>
       </div>
       <div class="reason">
+        <img class="reason-img" src="1010155.jpg" alt="Poedagar Glass Face watch">
         <div class="num">04</div>
         <h3>Butterfly-clasp bracelet</h3>
         <p>Solid stainless steel links with a butterfly clasp that adjusts to your wrist and stays closed. No snagging, no slipping off.</p>
       </div>
       <div class="reason">
+        <img class="reason-img" src="1010154.jpg" alt="Poedagar Glass Face watch">
         <div class="num">05</div>
         <h3>Comes complete</h3>
         <p>You're not just buying a watch. Sunglasses, a bottle of perfume and a bead bracelet arrive in the same box, styled to be worn together.</p>
       </div>
       <div class="reason">
+        <img class="reason-img" src="1010156.jpg" alt="Poedagar Glass Face watch">
         <div class="num">06</div>
         <h3>Delivered to your door</h3>
         <p>Nationwide delivery, with pay-on-delivery available so you can inspect the full set before you pay a kobo.</p>
@@ -448,7 +482,8 @@
   <div class="wrap bundle-wrap">
     <div>
       <span class="eyebrow">What arrives in the box</span>
-      <h2 style="font-size:30px; margin:10px 0 4px;">One order. Four things you'd normally buy separately.</h2>
+      <h2 style="font-size:30px; margin:10px 0 4px;">One order. Four things, all included.</h2>
+      <p style="color:var(--paper-dim); font-size:16px; margin-bottom:20px;">None of this is sold as an add on. Every set ships with all four pieces together, for the one price.</p>
       <ul class="bundle-list">
         <li>
           <div class="ico">1</div>
@@ -456,15 +491,15 @@
         </li>
         <li>
           <div class="ico">2</div>
-          <div><b>Luxury Sunglasses</b><span>A sharp finishing piece for the same outfit the watch is styled for.</span></div>
+          <div><b>Luxury Sunglasses <em class="incl">Included</em></b><span>A sharp finishing piece for the same outfit the watch is styled for.</span></div>
         </li>
         <li>
           <div class="ico">3</div>
-          <div><b>Designer-Style Perfume</b><span>A long-lasting fragrance, included so the set feels finished, not just functional.</span></div>
+          <div><b>Designer-Style Perfume <em class="incl">Included</em></b><span>A long-lasting fragrance, included so the set feels finished, not just functional.</span></div>
         </li>
         <li>
           <div class="ico">4</div>
-          <div><b>Bead Bracelet</b><span>Stacks cleanly against the watch case for a layered wrist look.</span></div>
+          <div><b>Bead Bracelet <em class="incl">Included</em></b><span>Stacks cleanly against the watch case for a layered wrist look.</span></div>
         </li>
       </ul>
       <a href="#order" class="btn block">Get The Complete Set For ₦85,000</a>
@@ -477,20 +512,18 @@
   </div>
 </section>
 
-<!-- VALUE STACK -->
+<!-- INCLUDED BANNER -->
 <section>
-  <div class="wrap" style="max-width:640px;">
+  <div class="wrap" style="max-width:760px;">
     <div class="section-head">
-      <span class="eyebrow">The math</span>
-      <h2>What you're actually paying for</h2>
+      <span class="eyebrow">No hidden price tags</span>
+      <h2>The sunglasses, perfume, and bracelet are not sold separately.</h2>
+      <p>They come inside the same box as the watch, at the one price above. You are not paying extra for any of it.</p>
     </div>
-    <div class="value-card">
-      <div class="value-row"><span>Poedagar Glass Face Watch</span><b>₦68,000</b></div>
-      <div class="value-row"><span>Luxury Sunglasses</span><b>₦18,000</b></div>
-      <div class="value-row"><span>Designer-Style Perfume</span><b>₦22,000</b></div>
-      <div class="value-row"><span>Bead Bracelet</span><b>₦10,000</b></div>
-      <div class="value-row"><span>Nationwide Delivery</span><b>Free</b></div>
-      <div class="value-row total"><span>Your price today</span><b>₦85,000</b></div>
+    <div class="included-strip">
+      <img src="1010154.jpg" alt="Poedagar watch on the wrist">
+      <img src="1010156.jpg" alt="Poedagar watch blue mirror dial close up">
+      <img src="1010157.jpg" alt="Poedagar watch boxed with guarantee card">
     </div>
   </div>
 </section>
@@ -549,6 +582,21 @@
         <p>Order today, and if the set arrives and it isn't right for you, let us know and we'll make it right with a repair, replacement, or refund. You can inspect before you pay when you choose pay on delivery, so there's no reason to hold back.</p>
       </div>
     </div>
+    <div class="guarantee-strip">
+      <img src="1010155.jpg" alt="Poedagar watch boxed with card">
+      <img src="1010154.jpg" alt="Poedagar watch black dial">
+      <img src="1010156.jpg" alt="Poedagar watch blue dial">
+      <img src="1010157.jpg" alt="Poedagar watch boxed">
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE BANNER -->
+<section class="banner">
+  <img src="1010154.jpg" alt="Poedagar Glass Face watch close up">
+  <div class="banner-overlay">
+    <h2>This is exactly what arrives at your door.</h2>
+    <a href="#order" class="btn">Order Your Set Now →</a>
   </div>
 </section>
 
@@ -556,6 +604,7 @@
 <section class="order-section" id="order">
   <div class="wrap">
     <div class="order-box">
+      <img src="1010157.jpg" alt="Poedagar Glass Face watch boxed" class="order-img">
       <span class="eyebrow">Final step</span>
       <h2 style="font-size:26px; margin-top:8px;">Get your Poedagar Glass Face Set</h2>
       <div class="price-block">
