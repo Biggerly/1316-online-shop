@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POEDAGAR Glass Face — Reflection Edition</title>
+<title>POEDAGAR Glass Face | Reflection Edition</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -13,7 +13,7 @@
     --panel-2:#FFFFFF;
     --line: rgba(17,17,17,0.12);
     --paper:#141414;
-    --paper-dim: rgba(20,20,20,0.66);
+    --paper-dim: rgba(20,20,20,0.78);
     --brass:#A97C2F;
     --brass-bright:#8C6423;
     --dial-blue:#2244A8;
@@ -28,6 +28,7 @@
     background:var(--ink);
     color:var(--paper);
     font-family:'Manrope', sans-serif;
+    font-size:16.5px;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
@@ -60,6 +61,24 @@
     font-weight:800;
     text-transform:uppercase;
   }
+
+  /* ---------- Live ticker ---------- */
+  .ticker{
+    background:#141414; color:#fff; overflow:hidden; white-space:nowrap; position:relative;
+    border-bottom:1px solid var(--line);
+  }
+  .ticker-track{
+    display:inline-flex; gap:48px; padding:9px 0;
+    animation: ticker-scroll 22s linear infinite;
+    font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; letter-spacing:0.03em;
+  }
+  .ticker-track span{ display:inline-flex; align-items:center; gap:8px; }
+  .ticker-track .flame{ color:var(--alert-bright); }
+  @keyframes ticker-scroll{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none; } }
 
   /* ---------- Sticky order bar (mobile) ---------- */
   .sticky-cta{
@@ -151,15 +170,16 @@
   }
 
   .trust-row{ display:flex; gap:26px; margin-top:30px; flex-wrap:wrap; }
-  .trust-row .item{ font-size:12.5px; color:var(--paper-dim); display:flex; align-items:center; gap:8px; font-family:'Space Mono',monospace;}
+  .trust-row .item{ font-size:13.5px; color:var(--paper-dim); display:flex; align-items:center; gap:8px; font-family:'Space Mono',monospace; font-weight:700;}
   .trust-row .dot{ width:6px; height:6px; border-radius:50%; background:var(--brass); flex:none;}
+  .trust-row .dot.live{ background:var(--alert-bright); animation: pulse-red 1.6s infinite; }
 
   /* ---------- Digital countdown signature ---------- */
   .flash{
     background:var(--panel-2); border:1px solid var(--line); border-radius:8px;
     padding:18px 20px; margin-top:26px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;
   }
-  .flash .label{ font-size:13px; color:var(--paper-dim); max-width:22ch; }
+  .flash .label{ font-size:14.5px; color:var(--paper-dim); max-width:24ch; font-weight:600; }
   .clock{ display:flex; gap:8px; }
   .clock .seg{
     background:var(--dial-blue-deep); border:1px solid rgba(255,255,255,0.08);
@@ -174,7 +194,7 @@
   section{ padding:76px 0; }
   .section-head{ max-width:640px; margin:0 auto 44px; text-align:center; }
   .section-head h2{ font-size:32px; color:var(--paper); margin-top:10px; }
-  .section-head p{ color:var(--paper-dim); margin-top:12px; font-size:15.5px; line-height:1.6;}
+  .section-head p{ color:var(--paper-dim); margin-top:12px; font-size:17px; line-height:1.6;}
 
   /* ---------- Video ---------- */
   .video-section{ background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -190,7 +210,7 @@
   .reason{ background:var(--panel); padding:32px 26px; }
   .reason .num{ font-family:'Space Mono',monospace; color:var(--brass); font-size:12px; }
   .reason h3{ font-size:19px; margin:10px 0 8px; color:var(--paper); }
-  .reason p{ color:var(--paper-dim); font-size:14px; line-height:1.55; }
+  .reason p{ color:var(--paper-dim); font-size:15.5px; line-height:1.6; }
 
   /* ---------- Bundle ---------- */
   .bundle-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
@@ -206,13 +226,13 @@
     width:34px; height:34px; border-radius:50%; background:var(--panel-2); border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center; flex:none; color:var(--brass-bright); font-size:15px;
   }
-  .bundle-list b{ display:block; color:var(--paper); font-size:15.5px; }
-  .bundle-list span{ color:var(--paper-dim); font-size:13.5px; }
+  .bundle-list b{ display:block; color:var(--paper); font-size:17px; }
+  .bundle-list span{ color:var(--paper-dim); font-size:15px; }
 
   .value-card{
     background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:26px; margin-top:24px;
   }
-  .value-row{ display:flex; justify-content:space-between; padding:9px 0; font-size:14px; color:var(--paper-dim); border-bottom:1px dashed var(--line); }
+  .value-row{ display:flex; justify-content:space-between; padding:10px 0; font-size:15.5px; color:var(--paper-dim); border-bottom:1px dashed var(--line); }
   .value-row b{ color:var(--paper); font-weight:600; }
   .value-row.total{ border-bottom:none; padding-top:16px; font-size:16px; }
   .value-row.total b{ color:var(--brass-bright); font-family:'Space Mono',monospace; font-size:20px; }
@@ -225,14 +245,14 @@
   .testimonials{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
   .tcard{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:26px; }
   .tcard .stars{ color:var(--brass); font-size:13px; letter-spacing:2px; margin-bottom:12px; }
-  .tcard p{ color:var(--paper-dim); font-size:14.5px; line-height:1.6; margin-bottom:16px; }
+  .tcard p{ color:var(--paper-dim); font-size:16px; line-height:1.65; margin-bottom:16px; }
   .tcard .who{ display:flex; align-items:center; gap:10px; }
   .tcard .avatar{
     width:36px; height:36px; border-radius:50%; background:var(--dial-blue-deep);
     display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; color:var(--brass-bright); font-size:14px;
   }
   .tcard .who b{ display:block; font-size:13.5px; color:var(--paper); }
-  .tcard .who small{ color:var(--paper-dim); font-size:12px; }
+  .tcard .who small{ color:var(--paper-dim); font-size:13px; }
   .note-inline{ text-align:center; color:var(--paper-dim); font-size:12px; margin-top:22px; font-family:'Space Mono',monospace;}
 
   /* ---------- Guarantee ---------- */
@@ -249,7 +269,7 @@
     font-weight:700;
   }
   .guarantee h3{ font-size:24px; margin-bottom:10px; }
-  .guarantee p{ color:var(--paper-dim); font-size:14.5px; line-height:1.6; }
+  .guarantee p{ color:var(--paper-dim); font-size:16px; line-height:1.65; }
 
   /* ---------- Order ---------- */
   .order-section{ background:var(--panel); border-top:1px solid var(--line); }
@@ -260,10 +280,10 @@
   .order-box .price-block{ margin:18px 0 8px; }
   .order-box .now{ font-family:'Space Mono',monospace; font-size:40px; font-weight:700; color:var(--brass-bright); }
   .order-box .was{ font-family:'Space Mono',monospace; font-size:16px; color:var(--paper-dim); text-decoration:line-through; margin-left:10px;}
-  .order-box .sub{ color:var(--paper-dim); font-size:13.5px; margin-bottom:26px; }
+  .order-box .sub{ color:var(--paper-dim); font-size:15px; margin-bottom:26px; }
   .stock-bar{ background:var(--panel); border-radius:6px; overflow:hidden; height:8px; margin:18px 0 8px; border:1px solid var(--line); }
   .stock-bar .fill{ height:100%; width:78%; background:linear-gradient(90deg, var(--alert), var(--brass)); }
-  .stock-label{ font-size:11.5px; color:var(--paper-dim); font-family:'Space Mono',monospace; display:flex; justify-content:space-between; margin-bottom:22px;}
+  .stock-label{ font-size:12.5px; color:var(--paper-dim); font-family:'Space Mono',monospace; display:flex; justify-content:space-between; margin-bottom:22px; font-weight:700;}
 
   /* ---------- FAQ ---------- */
   .faq{ max-width:760px; margin:0 auto; }
@@ -272,9 +292,26 @@
   .faq-item summary::-webkit-details-marker{ display:none; }
   .faq-item summary::after{ content:'+'; color:var(--brass); font-size:20px; }
   .faq-item[open] summary::after{ content:'–'; }
-  .faq-item p{ color:var(--paper-dim); margin-top:12px; font-size:14px; line-height:1.6; }
+  .faq-item p{ color:var(--paper-dim); margin-top:12px; font-size:15.5px; line-height:1.65; }
 
   footer{ padding:36px 0 100px; text-align:center; color:var(--paper-dim); font-size:12px; font-family:'Space Mono',monospace; }
+
+  /* ---------- Recent order toast ---------- */
+  .toast{
+    position:fixed; left:18px; bottom:78px; z-index:70;
+    background:#141414; color:#fff; border-radius:8px; padding:13px 16px;
+    display:flex; align-items:center; gap:12px; max-width:280px;
+    box-shadow:0 16px 34px rgba(0,0,0,0.3);
+    transform:translateY(140%); transition:transform .5s ease;
+  }
+  .toast.show{ transform:translateY(0); }
+  .toast .avatar-dot{
+    width:36px; height:36px; border-radius:50%; background:var(--alert);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; flex:none;
+  }
+  .toast b{ display:block; font-size:13.5px; }
+  .toast span{ display:block; font-size:11.5px; color:rgba(255,255,255,0.7); font-family:'Space Mono',monospace; margin-top:2px; }
+  @media (max-width:860px){ .toast{ bottom:78px; left:12px; right:12px; max-width:none; } }
 
   @media (max-width:860px){
     .hero-grid{ grid-template-columns:1fr; }
@@ -291,27 +328,42 @@
 <body>
 
 <div class="topbar">FREE NATIONWIDE DELIVERY &nbsp;·&nbsp; PAY ON DELIVERY AVAILABLE &nbsp;·&nbsp; LIMITED BUNDLES REMAINING</div>
+<div class="ticker">
+  <div class="ticker-track">
+    <span><span class="flame">●</span> Chidinma in Lagos just ordered a set</span>
+    <span><span class="flame">●</span> 34 people are looking at this page right now</span>
+    <span><span class="flame">●</span> Bashir in Kano just ordered a set</span>
+    <span><span class="flame">●</span> Only a limited number of bundles left this week</span>
+    <span><span class="flame">●</span> Ngozi in Enugu just ordered a set</span>
+    <span><span class="flame">●</span> 34 people are looking at this page right now</span>
+    <span><span class="flame">●</span> Chidinma in Lagos just ordered a set</span>
+    <span><span class="flame">●</span> Bashir in Kano just ordered a set</span>
+    <span><span class="flame">●</span> Only a limited number of bundles left this week</span>
+    <span><span class="flame">●</span> Ngozi in Enugu just ordered a set</span>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Poedagar — Glass Face Collection</span>
+      <span class="eyebrow">Poedagar Glass Face Collection</span>
       <h1>A mirror dial that reflects <em>exactly</em> who's watching the time.</h1>
-      <p class="lead">The jump-hour LED display, wrapped in a PVD-coated steel case that doesn't fade, peel, or rust. This week, every watch ships as a complete set — sunglasses, perfume, and a bead bracelet included, at no extra cost.</p>
+      <p class="lead">The jump hour LED display sits inside a PVD coated steel case that will not fade, peel, or rust. Every order this week ships as a full set. Sunglasses, perfume, and a bead bracelet are included at no extra cost.</p>
 
       <div class="hero-price">
         <span class="now">₦85,000</span>
         <span class="was">₦138,000</span>
-        <span class="tag">SET OF 4 — SAVE ₦53,000</span>
+        <span class="tag">SET OF 4, SAVE ₦53,000</span>
       </div>
 
       <a href="#order" class="btn">Claim Your Set Now →</a>
       <a href="#order" class="btn btn-ghost" style="margin-left:10px;">See What's Included</a>
 
       <div class="trust-row">
-        <div class="item"><span class="dot"></span> PVD-coated, won't fade or peel</div>
-        <div class="item"><span class="dot"></span> 3ATM splash &amp; rain resistant</div>
+        <div class="item"><span class="dot live"></span> <span id="viewerCount">31</span> people are viewing this right now</div>
+        <div class="item"><span class="dot"></span> PVD coated, will not fade or peel</div>
+        <div class="item"><span class="dot"></span> 3ATM splash and rain resistant</div>
         <div class="item"><span class="dot"></span> Pay on delivery, nationwide</div>
       </div>
 
@@ -360,7 +412,7 @@
       <div class="reason">
         <div class="num">01</div>
         <h3>Mirror-coated jump dial</h3>
-        <p>Instead of hands, the time jumps up in clean LED-style digits behind a mirror-polished, colour-shifting glass face — it reads like a design object, not a stock dial.</p>
+        <p>Instead of hands, the time jumps up in clean LED style digits behind a mirror polished, colour shifting glass face. It reads like a design object, not a stock dial.</p>
       </div>
       <div class="reason">
         <div class="num">02</div>
@@ -375,7 +427,7 @@
       <div class="reason">
         <div class="num">04</div>
         <h3>Butterfly-clasp bracelet</h3>
-        <p>Solid stainless steel links with a butterfly clasp that adjusts to your wrist and stays closed — no snagging, no slipping off.</p>
+        <p>Solid stainless steel links with a butterfly clasp that adjusts to your wrist and stays closed. No snagging, no slipping off.</p>
       </div>
       <div class="reason">
         <div class="num">05</div>
@@ -415,7 +467,7 @@
           <div><b>Bead Bracelet</b><span>Stacks cleanly against the watch case for a layered wrist look.</span></div>
         </li>
       </ul>
-      <a href="#order" class="btn block">Get The Complete Set — ₦85,000</a>
+      <a href="#order" class="btn block">Get The Complete Set For ₦85,000</a>
     </div>
     <div class="bundle-gallery">
       <img src="1010157.jpg" alt="Poedagar watch box with card">
@@ -469,7 +521,7 @@
     <div class="testimonials">
       <div class="tcard">
         <div class="stars">★★★★★</div>
-        <p>"The mirror face is the part I didn't expect — it genuinely changes with the light. Feels heavier and more solid than the price suggests."</p>
+        <p>"The mirror face is the part I didn't expect. It genuinely changes with the light. Feels heavier and more solid than the price suggests."</p>
         <div class="who"><div class="avatar">T</div><div><b>Tunde</b><small>Lagos</small></div></div>
       </div>
       <div class="tcard">
@@ -483,7 +535,7 @@
         <div class="who"><div class="avatar">E</div><div><b>Emeka</b><small>Port Harcourt</small></div></div>
       </div>
     </div>
-    <p class="note-inline">// sample reviews shown for layout — swap in your own customers' words and photos before publishing</p>
+    <p class="note-inline">Sample reviews shown for layout. Swap in your own customers' words and photos before publishing.</p>
   </div>
 </section>
 
@@ -494,7 +546,7 @@
       <div class="seal">100%<br>MONEY<br>BACK</div>
       <div>
         <h3>If it's not what you expected, send it back.</h3>
-        <p>Order today, and if the set arrives and it isn't right for you, let us know and we'll make it right — repair, replacement, or refund. You inspect before you pay when you choose pay-on-delivery, so there's no reason to hold back.</p>
+        <p>Order today, and if the set arrives and it isn't right for you, let us know and we'll make it right with a repair, replacement, or refund. You can inspect before you pay when you choose pay on delivery, so there's no reason to hold back.</p>
       </div>
     </div>
   </div>
@@ -509,7 +561,7 @@
       <div class="price-block">
         <span class="now">₦85,000</span><span class="was">₦138,000</span>
       </div>
-      <p class="sub">Watch · Sunglasses · Perfume · Bead Bracelet — one delivery, pay on arrival.</p>
+      <p class="sub">Watch · Sunglasses · Perfume · Bead Bracelet, all in one delivery. Pay on arrival.</p>
 
       <div class="stock-bar"><div class="fill"></div></div>
       <div class="stock-label"><span>Bundles reserved today</span><span>78%</span></div>
@@ -534,7 +586,7 @@
     </div>
     <details class="faq-item" open>
       <summary>Can I pay when it arrives?</summary>
-      <p>Yes — pay-on-delivery is available nationwide. You can check the watch, sunglasses, perfume and bracelet before you hand over payment.</p>
+      <p>Yes. Pay on delivery is available nationwide. You can check the watch, sunglasses, perfume and bracelet before you hand over payment.</p>
     </details>
     <details class="faq-item">
       <summary>Will the coating fade or peel?</summary>
@@ -546,18 +598,26 @@
     </details>
     <details class="faq-item">
       <summary>How long does delivery take?</summary>
-      <p>Add your actual delivery windows here before publishing — buyers convert faster when the timeline is specific and true.</p>
+      <p>Add your actual delivery windows here before publishing. Buyers convert faster when the timeline is specific and true.</p>
     </details>
     <details class="faq-item">
       <summary>What if I don't like it?</summary>
-      <p>Reach out and we'll sort a repair, replacement, or refund — see the guarantee above.</p>
+      <p>Reach out and we'll sort a repair, replacement, or refund. See the guarantee above.</p>
     </details>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">POEDAGAR GLASS FACE — SET OF 4 · ₦85,000 · FREE NATIONWIDE DELIVERY</div>
+  <div class="wrap">POEDAGAR GLASS FACE · SET OF 4 · ₦85,000 · FREE NATIONWIDE DELIVERY</div>
 </footer>
+
+<div class="toast" id="toast">
+  <div class="avatar-dot" id="toastAvatar">C</div>
+  <div>
+    <b id="toastText">Chidinma just ordered a set</b>
+    <span id="toastTime">2 minutes ago</span>
+  </div>
+</div>
 
 <div class="sticky-cta">
   <div class="price">₦85,000 <small>₦138,000</small></div>
@@ -585,6 +645,45 @@
   }
   tick();
   setInterval(tick, 1000);
+
+  // Sample "recent order" rotation. Replace names/cities and wire this up
+  // to your real order log before publishing, so it reflects real activity.
+  const sampleOrders = [
+    { name:"Chidinma", city:"Lagos", init:"C" },
+    { name:"Bashir", city:"Kano", init:"B" },
+    { name:"Ngozi", city:"Enugu", init:"N" },
+    { name:"Tunde", city:"Ibadan", init:"T" },
+    { name:"Amaka", city:"Abuja", init:"A" },
+  ];
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  const toastTime = document.getElementById('toastTime');
+  const toastAvatar = document.getElementById('toastAvatar');
+  let orderIndex = 0;
+  function showToast(){
+    const o = sampleOrders[orderIndex % sampleOrders.length];
+    orderIndex++;
+    toastAvatar.textContent = o.init;
+    toastText.textContent = o.name + " in " + o.city + " just ordered a set";
+    toastTime.textContent = "just now";
+    toast.classList.add('show');
+    setTimeout(()=> toast.classList.remove('show'), 4200);
+  }
+  setTimeout(showToast, 3000);
+  setInterval(showToast, 9000);
+
+  // Sample "people viewing" fluctuation. Wire this up to real analytics
+  // before publishing rather than leaving it as a static illustration.
+  const viewerEl = document.getElementById('viewerCount');
+  function nudgeViewers(){
+    const current = parseInt(viewerEl.textContent, 10);
+    const delta = Math.floor(Math.random()*5) - 2;
+    let next = current + delta;
+    if(next < 18) next = 18;
+    if(next > 52) next = 52;
+    viewerEl.textContent = next;
+  }
+  setInterval(nudgeViewers, 4000);
 </script>
 
 </body>
