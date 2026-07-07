@@ -448,9 +448,9 @@
       <p class="lead">The jump hour LED display sits inside a PVD coated steel case that will not fade, peel, or rust. Every order this week ships as a full set. Sunglasses, perfume, and a bead bracelet are included at no extra cost.</p>
 
       <div class="hero-price">
-        <span class="now">₦85,000</span>
+        <span class="now">₦88,000</span>
         <span class="was">₦138,000</span>
-        <span class="tag">SET OF 4, SAVE ₦53,000</span>
+        <span class="tag">SET OF 4, SAVE ₦50,000</span>
       </div>
 
       <a href="#order" class="btn">Claim Your Set Now →</a>
@@ -573,7 +573,7 @@
           <div><b>Bead Bracelet <em class="incl">Included</em></b><span>Stacks cleanly against the watch case for a layered wrist look.</span></div>
         </li>
       </ul>
-      <a href="#order" class="btn block">Get The Complete Set For ₦85,000</a>
+      <a href="#order" class="btn block">Get The Complete Set For ₦88,000</a>
     </div>
     <div class="bundle-gallery">
       <img src="1010157.jpg" alt="Poedagar watch box with card">
@@ -680,7 +680,7 @@
       <span class="eyebrow">Final step</span>
       <h2 style="font-size:26px; margin-top:8px;">Get your Poedagar Glass Face Set</h2>
       <div class="price-block">
-        <span class="now">₦85,000</span><span class="was">₦138,000</span>
+        <span class="now">₦88,000</span><span class="was">₦138,000</span>
       </div>
       <p class="sub">Watch · Sunglasses · Perfume · Bead Bracelet, all in one delivery. Pay on arrival.</p>
 
@@ -783,7 +783,7 @@
 </section>
 
 <footer>
-  <div class="wrap">POEDAGAR GLASS FACE · SET OF 4 · ₦85,000 · FREE NATIONWIDE DELIVERY</div>
+  <div class="wrap">POEDAGAR GLASS FACE · SET OF 4 · ₦88,000 · FREE NATIONWIDE DELIVERY</div>
 </footer>
 
 <div class="toast" id="toast">
@@ -799,7 +799,7 @@
 </a>
 
 <div class="sticky-cta">
-  <div class="price">₦85,000 <small>₦138,000</small></div>
+  <div class="price">₦88,000 <small>₦138,000</small></div>
   <a href="#order" class="btn" style="padding:12px 20px; font-size:13.5px;">Order Now</a>
 </div>
 
@@ -865,11 +865,11 @@
   setInterval(nudgeViewers, 4000);
 
   // ---------- Order form -> email handoff ----------
-  // The form emails straight to your inbox using FormSubmit (no cPanel needed).
-  // IMPORTANT: the first time this form is submitted for real, FormSubmit sends
-  // a one-time confirmation email to 1316onlineshop@gmail.com. Someone needs to
-  // click "Activate Form" in that email before future submissions arrive normally.
-  const EMAIL_ENDPOINT = "https://formsubmit.co/ajax/1316onlineshop@gmail.com";
+  // The form emails straight to your inbox using Web3Forms (no cPanel needed).
+  // This uses your Web3Forms access key below, tied to wherever you registered
+  // it (check web3forms.com if you need to confirm or change the destination email).
+  const EMAIL_ENDPOINT = "https://api.web3forms.com/submit";
+  const WEB3FORMS_ACCESS_KEY = "41e5f4d4-d768-4754-9b36-2a4c3f8c1372";
 
   // Replace WHATSAPP_NUMBER with your real number (country code, no +, no spaces)
   // before publishing, e.g. "2348031234567".
@@ -908,28 +908,34 @@
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify({
-        _subject: "New Poedagar Glass Face Order",
-        Name: lastOrder.fullName,
-        Phone: lastOrder.phone,
-        Address: lastOrder.address,
-        State: lastOrder.state,
-        Colour: lastOrder.color,
-        Quantity: lastOrder.quantity
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: "New Poedagar Glass Face Order",
+        from_name: "Poedagar Landing Page",
+        name: lastOrder.fullName,
+        phone: lastOrder.phone,
+        address: lastOrder.address,
+        state: lastOrder.state,
+        colour: lastOrder.color,
+        quantity: lastOrder.quantity
       })
     })
     .then(function(res){ return res.json(); })
-    .then(function(){
+    .then(function(result){
+      if(!result.success){
+        throw new Error(result.message || "Web3Forms rejected the submission");
+      }
       hasSubmitted = true;
       submitBtn.textContent = "Order Submitted";
       orderBox.style.display = 'none';
       upsellBox.style.display = 'block';
       upsellBox.scrollIntoView({ behavior:'smooth', block:'start' });
     })
-    .catch(function(){
+    .catch(function(err){
       submitBtn.disabled = false;
       submitBtn.textContent = "Submit My Order →";
       formStatus.textContent = "Something went wrong sending your order. Please try again, or message us on WhatsApp instead.";
       formStatus.className = "form-status error";
+      console.error("Web3Forms error:", err);
     });
   });
 
@@ -945,7 +951,7 @@
       "Address: " + lastOrder.address,
       "State: " + lastOrder.state,
       "Colour: " + lastOrder.color,
-      "Quantity: " + qty + " " + setWord + " at N85,000 each"
+      "Quantity: " + qty + " " + setWord + " at N88,000 each"
     ];
     return lines.join("\n");
   }
@@ -967,3 +973,4 @@
 
 </body>
 </html>
+
