@@ -91,6 +91,22 @@
   .sticky-cta .price{font-family:'Space Mono',monospace; font-weight:800; color:var(--alert); font-size:16px;}
   .sticky-cta .price small{display:block; color:var(--paper-dim); font-size:10px; text-decoration:line-through; font-weight:400;}
 
+  /* ---------- Floating WhatsApp button ---------- */
+  .wa-float{
+    position:fixed; right:18px; bottom:92px; z-index:65;
+    width:56px; height:56px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 26px rgba(37,211,102,0.45);
+    animation: pulse-wa 2s infinite;
+  }
+  @keyframes pulse-wa{
+    0%   { box-shadow:0 0 0 0 rgba(37,211,102,0.55), 0 10px 26px rgba(37,211,102,0.35); }
+    70%  { box-shadow:0 0 0 14px rgba(37,211,102,0), 0 10px 26px rgba(37,211,102,0.35); }
+    100% { box-shadow:0 0 0 0 rgba(37,211,102,0), 0 10px 26px rgba(37,211,102,0.35); }
+  }
+  @media (prefers-reduced-motion: reduce){ .wa-float{ animation:none; } }
+  @media (max-width:860px){ .wa-float{ bottom:86px; right:14px; width:52px; height:52px; } }
+
   /* ---------- Buttons ---------- */
   @keyframes pulse-red{
     0%   { box-shadow:0 0 0 0 rgba(225,18,42,0.55), 0 10px 24px rgba(225,18,42,0.25); }
@@ -115,6 +131,11 @@
   }
   .btn:hover{ transform:translateY(-2px) scale(1.02); }
   .btn.block{width:100%;}
+  .btn:disabled{
+    animation:none; cursor:default; opacity:0.55; background:#9a9a9a;
+    transform:none; box-shadow:none;
+  }
+  .btn:disabled:hover{ transform:none; }
   .btn-ghost{
     background:#fff; color:var(--paper); border:2px solid var(--paper);
     box-shadow:none; animation:none; text-transform:none; font-weight:700;
@@ -203,7 +224,7 @@
     box-shadow:0 30px 60px rgba(0,0,0,0.5); border:1px solid var(--line);
     aspect-ratio:16/9; background:#000;
   }
-  .video-frame iframe{ width:100%; height:100%; border:0; }
+  .video-frame video{ width:100%; height:100%; border:0; background:#000; object-fit:cover; }
 
   /* ---------- Reasons ---------- */
   .reasons{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
@@ -222,8 +243,9 @@
   /* ---------- Bundle ---------- */
   .bundle-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
   .bundle-gallery{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .bundle-gallery img{ border-radius:6px; box-shadow:0 14px 30px rgba(0,0,0,0.4); }
-  .bundle-gallery img:first-child{ grid-column:1/3; }
+  .bundle-gallery img{ border-radius:6px; box-shadow:0 14px 30px rgba(0,0,0,0.4); aspect-ratio:4/5; object-fit:cover; }
+  .bundle-gallery img:first-child{ grid-column:1/3; aspect-ratio:16/10; }
+  .bundle-gallery img.span-both{ grid-column:1/3; aspect-ratio:16/9; }
   .bundle-list{ list-style:none; margin:26px 0 30px; }
   .bundle-list li{
     display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--line);
@@ -323,6 +345,23 @@
   .order-form input:focus, .order-form textarea:focus, .order-form select:focus{ outline:none; border-color:var(--alert); }
   .order-form textarea{ min-height:78px; resize:vertical; }
   .order-form button{ margin-top:6px; }
+
+  .color-group{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:2px; }
+  .color-option{
+    position:relative; display:flex; align-items:center; gap:10px;
+    border:1.5px solid var(--line); border-radius:8px; padding:12px 14px; cursor:pointer;
+    font-family:'Manrope', sans-serif; font-size:13.5px; font-weight:600; color:var(--paper);
+    background:#fff; text-transform:none; letter-spacing:normal; transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .color-option input{ position:absolute; opacity:0; width:1px; height:1px; }
+  .color-option:has(input:checked){ border-color:var(--alert); box-shadow:0 0 0 2px rgba(225,18,42,0.14); }
+  .swatch-pair{ display:flex; flex:none; }
+  .swatch{ width:17px; height:17px; border-radius:50%; border:1px solid rgba(0,0,0,0.18); margin-left:-5px; }
+  .swatch:first-child{ margin-left:0; }
+  .form-status{ font-size:13.5px; font-weight:700; margin-top:4px; text-align:center; text-transform:none; letter-spacing:normal; font-family:'Manrope', sans-serif; }
+  .form-status.error{ color:var(--alert); }
+  .form-status.sending{ color:var(--paper-dim); }
+  @media (max-width:480px){ .color-group{ grid-template-columns:1fr; } }
 
   /* ---------- Upsell screen ---------- */
   .upsell-box{
@@ -453,7 +492,10 @@
       <p>Watch the jump-hour digits shift and the mirror face change color with the light before you decide.</p>
     </div>
     <div class="video-frame">
-      <iframe src="https://www.youtube.com/embed/CRuMqoFLoa4" title="Poedagar square watch review" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <video controls playsinline poster="1010154.jpg">
+        <source src="poedagar.mp4" type="video/mp4">
+        Your browser does not support embedded video.
+      </video>
     </div>
   </div>
 </section>
@@ -491,7 +533,7 @@
         <p>Solid stainless steel links with a butterfly clasp that adjusts to your wrist and stays closed. No snagging, no slipping off.</p>
       </div>
       <div class="reason">
-        <img class="reason-img" src="1010154.jpg" alt="Poedagar Glass Face watch">
+        <img class="reason-img" src="sunglasses.jpg" alt="Sunglasses included with the Poedagar set">
         <div class="num">05</div>
         <h3>Comes complete</h3>
         <p>You're not just buying a watch. Sunglasses, a bottle of perfume and a bead bracelet arrive in the same box, styled to be worn together.</p>
@@ -535,8 +577,9 @@
     </div>
     <div class="bundle-gallery">
       <img src="1010157.jpg" alt="Poedagar watch box with card">
-      <img src="1010155.jpg" alt="Poedagar watch in box, side angle">
-      <img src="1010156.jpg" alt="Poedagar watch blue dial in box">
+      <img src="sunglasses.jpg" alt="Luxury sunglasses included with the set">
+      <img src="perfume.jpg" alt="Oud Al Laye perfume included with the set">
+      <img src="bracelet.jpg" alt="Bead bracelet included with the set" class="span-both">
     </div>
   </div>
 </section>
@@ -550,9 +593,9 @@
       <p>They come inside the same box as the watch, at the one price above. You are not paying extra for any of it.</p>
     </div>
     <div class="included-strip">
-      <img src="1010154.jpg" alt="Poedagar watch on the wrist">
-      <img src="1010156.jpg" alt="Poedagar watch blue mirror dial close up">
-      <img src="1010157.jpg" alt="Poedagar watch boxed with guarantee card">
+      <img src="sunglasses.jpg" alt="Luxury sunglasses included with the set">
+      <img src="perfume.jpg" alt="Oud Al Laye perfume included with the set">
+      <img src="bracelet.jpg" alt="Bead bracelet included with the set">
     </div>
   </div>
 </section>
@@ -613,9 +656,9 @@
     </div>
     <div class="guarantee-strip">
       <img src="1010155.jpg" alt="Poedagar watch boxed with card">
-      <img src="1010154.jpg" alt="Poedagar watch black dial">
-      <img src="1010156.jpg" alt="Poedagar watch blue dial">
-      <img src="1010157.jpg" alt="Poedagar watch boxed">
+      <img src="sunglasses.jpg" alt="Luxury sunglasses included with the set">
+      <img src="perfume.jpg" alt="Oud Al Laye perfume included with the set">
+      <img src="bracelet.jpg" alt="Bead bracelet included with the set">
     </div>
   </div>
 </section>
@@ -662,6 +705,30 @@
         <label>State / City
           <input type="text" name="state" required placeholder="e.g. Lagos">
         </label>
+        <label>Choose Your Colour
+          <div class="color-group">
+            <label class="color-option">
+              <input type="radio" name="color" value="Black Strap, Black Face" required>
+              <span class="swatch-pair"><span class="swatch" style="background:#1a1a1a;"></span><span class="swatch" style="background:#1a1a1a;"></span></span>
+              Black Strap, Black Face
+            </label>
+            <label class="color-option">
+              <input type="radio" name="color" value="Black Strap, Blue Face">
+              <span class="swatch-pair"><span class="swatch" style="background:#1a1a1a;"></span><span class="swatch" style="background:#2244A8;"></span></span>
+              Black Strap, Blue Face
+            </label>
+            <label class="color-option">
+              <input type="radio" name="color" value="Silver Strap, Orange Face">
+              <span class="swatch-pair"><span class="swatch" style="background:#C8CCD0;"></span><span class="swatch" style="background:#D9631E;"></span></span>
+              Silver Strap, Orange Face
+            </label>
+            <label class="color-option">
+              <input type="radio" name="color" value="Silver Strap, Blue Face">
+              <span class="swatch-pair"><span class="swatch" style="background:#C8CCD0;"></span><span class="swatch" style="background:#2244A8;"></span></span>
+              Silver Strap, Blue Face
+            </label>
+          </div>
+        </label>
         <label>Quantity
           <select name="quantity">
             <option value="1">1 set</option>
@@ -670,15 +737,17 @@
           </select>
         </label>
         <button type="submit" class="btn block">Submit My Order →</button>
+        <p class="form-status" id="formStatus"></p>
       </form>
-      <p style="font-size:11.5px; color:var(--paper-dim); margin-top:14px;">Orders are sent straight to WhatsApp for confirmation.</p>
+      <p style="font-size:11.5px; color:var(--paper-dim); margin-top:14px;">Orders are sent straight to your email for confirmation.</p>
     </div>
 
     <!-- POST SUBMIT CONFIRMATION -->
     <div class="upsell-box" id="upsellBox" style="display:none;">
       <h2 class="upsell-thanks">Thank You!!</h2>
-      <p class="upsell-body">Your order details are ready. Tap below to send them to us on WhatsApp and we will confirm your delivery.</p>
-      <button class="btn block" id="confirmOrderBtn">Send My Order On WhatsApp →</button>
+      <p class="upsell-body">Your order has been emailed to us. We will reach out shortly to confirm delivery.</p>
+      <p class="upsell-body" style="font-size:14.5px; margin-bottom:16px;">Want it confirmed faster? Message us directly.</p>
+      <button class="btn block" id="confirmOrderBtn">Confirm On WhatsApp →</button>
     </div>
   </div>
 </section>
@@ -724,6 +793,10 @@
     <span id="toastTime">2 minutes ago</span>
   </div>
 </div>
+
+<a class="wa-float" href="https://wa.me/2348166432209?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Poedagar%20Glass%20Face%20Set" target="_blank" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff"><path d="M16.004 3C9.377 3 4 8.373 4 15c0 2.51.766 4.84 2.08 6.77L4.5 29l7.42-1.94A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3zm0 21.8a9.77 9.77 0 0 1-4.98-1.36l-.357-.21-4.4 1.15 1.17-4.29-.232-.37A9.76 9.76 0 1 1 25.77 15c0 5.4-4.39 9.8-9.766 9.8zm5.36-7.3c-.294-.147-1.74-.86-2.01-.96-.27-.1-.467-.147-.664.147-.196.294-.76.96-.932 1.157-.172.196-.343.22-.637.073-.294-.147-1.24-.457-2.36-1.457-.872-.778-1.46-1.74-1.632-2.033-.172-.294-.018-.453.13-.6.133-.132.294-.343.44-.514.148-.172.196-.294.294-.49.098-.196.049-.368-.024-.514-.073-.147-.663-1.6-.91-2.19-.24-.577-.483-.5-.663-.51l-.564-.01c-.196 0-.514.073-.784.368-.27.294-1.03 1.007-1.03 2.457 0 1.45 1.055 2.85 1.202 3.047.147.196 2.076 3.17 5.03 4.443.703.303 1.252.484 1.68.62.706.224 1.348.192 1.856.117.566-.084 1.74-.71 1.985-1.397.245-.686.245-1.274.172-1.397-.073-.122-.27-.196-.564-.343z"/></svg>
+</a>
 
 <div class="sticky-cta">
   <div class="price">₦85,000 <small>₦138,000</small></div>
@@ -791,7 +864,13 @@
   }
   setInterval(nudgeViewers, 4000);
 
-  // ---------- Order form -> WhatsApp handoff ----------
+  // ---------- Order form -> email handoff ----------
+  // The form emails straight to your inbox using FormSubmit (no cPanel needed).
+  // IMPORTANT: the first time this form is submitted for real, FormSubmit sends
+  // a one-time confirmation email to 1316onlineshop@gmail.com. Someone needs to
+  // click "Activate Form" in that email before future submissions arrive normally.
+  const EMAIL_ENDPOINT = "https://formsubmit.co/ajax/1316onlineshop@gmail.com";
+
   // Replace WHATSAPP_NUMBER with your real number (country code, no +, no spaces)
   // before publishing, e.g. "2348031234567".
   const WHATSAPP_NUMBER = "2348166432209";
@@ -799,21 +878,59 @@
   const orderForm = document.getElementById('orderForm');
   const orderBox = document.getElementById('orderBox');
   const upsellBox = document.getElementById('upsellBox');
+  const submitBtn = orderForm.querySelector('button[type="submit"]');
+  const confirmBtn = document.getElementById('confirmOrderBtn');
+  const formStatus = document.getElementById('formStatus');
   let lastOrder = null;
+  let hasSubmitted = false;
+  let hasSent = false;
 
   orderForm.addEventListener('submit', function(e){
     e.preventDefault();
+    if(hasSubmitted) return;
+
     const data = new FormData(orderForm);
     lastOrder = {
       fullName: data.get('fullName').trim(),
       phone: data.get('phone').trim(),
       address: data.get('address').trim(),
       state: data.get('state').trim(),
+      color: data.get('color'),
       quantity: data.get('quantity')
     };
-    orderBox.style.display = 'none';
-    upsellBox.style.display = 'block';
-    upsellBox.scrollIntoView({ behavior:'smooth', block:'start' });
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+    formStatus.textContent = "Sending your order...";
+    formStatus.className = "form-status sending";
+
+    fetch(EMAIL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        _subject: "New Poedagar Glass Face Order",
+        Name: lastOrder.fullName,
+        Phone: lastOrder.phone,
+        Address: lastOrder.address,
+        State: lastOrder.state,
+        Colour: lastOrder.color,
+        Quantity: lastOrder.quantity
+      })
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(){
+      hasSubmitted = true;
+      submitBtn.textContent = "Order Submitted";
+      orderBox.style.display = 'none';
+      upsellBox.style.display = 'block';
+      upsellBox.scrollIntoView({ behavior:'smooth', block:'start' });
+    })
+    .catch(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit My Order →";
+      formStatus.textContent = "Something went wrong sending your order. Please try again, or message us on WhatsApp instead.";
+      formStatus.className = "form-status error";
+    });
   });
 
   function buildMessage(){
@@ -821,12 +938,13 @@
     const qty = lastOrder.quantity;
     const setWord = qty > 1 ? "sets" : "set";
     let lines = [
-      "Hi, I would like to order the Poedagar Glass Face Watch.",
+      "Hi, I would like to confirm my Poedagar Glass Face Watch order.",
       "",
       "Name: " + lastOrder.fullName,
       "Phone: " + lastOrder.phone,
       "Address: " + lastOrder.address,
       "State: " + lastOrder.state,
+      "Colour: " + lastOrder.color,
       "Quantity: " + qty + " " + setWord + " at N85,000 each"
     ];
     return lines.join("\n");
@@ -838,7 +956,11 @@
     window.open(url, '_blank');
   }
 
-  document.getElementById('confirmOrderBtn').addEventListener('click', function(){
+  confirmBtn.addEventListener('click', function(){
+    if(hasSent) return;
+    hasSent = true;
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Sent ✓";
     sendToWhatsApp();
   });
 </script>
