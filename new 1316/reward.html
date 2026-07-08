@@ -494,7 +494,7 @@
     </div>
     <div class="video-frame">
       <video controls autoplay muted loop playsinline poster="1010154.jpg">
-        <source src="poe.mp4" type="video/mp4">
+        <source src="poedagar.mp4" type="video/mp4">
         Your browser does not support embedded video.
       </video>
     </div>
@@ -697,8 +697,11 @@
         <label>Full Name
           <input type="text" name="fullName" required placeholder="e.g. Ibrahim Musa">
         </label>
-        <label>Phone Number (WhatsApp)
+        <label>Phone Number 1 (WhatsApp)
           <input type="tel" name="phone" required placeholder="e.g. 0803 123 4567">
+        </label>
+        <label>Phone Number 2
+          <input type="tel" name="phone2" required placeholder="An alternate number, in case we can't reach the first">
         </label>
         <label>Delivery Address
           <textarea name="address" required placeholder="House number, street, area"></textarea>
@@ -894,6 +897,7 @@
     lastOrder = {
       fullName: data.get('fullName').trim(),
       phone: data.get('phone').trim(),
+      phone2: data.get('phone2').trim(),
       address: data.get('address').trim(),
       state: data.get('state').trim(),
       color: data.get('color'),
@@ -914,6 +918,7 @@
         from_name: "Poedagar Landing Page",
         name: lastOrder.fullName,
         phone: lastOrder.phone,
+        phone2: lastOrder.phone2 || "Not provided",
         address: lastOrder.address,
         state: lastOrder.state,
         colour: lastOrder.color,
@@ -948,7 +953,8 @@
       "Hi, I would like to confirm my Poedagar Glass Face Watch order.",
       "",
       "Name: " + lastOrder.fullName,
-      "Phone: " + lastOrder.phone,
+      "Phone 1: " + lastOrder.phone,
+      "Phone 2: " + (lastOrder.phone2 || "Not provided"),
       "Address: " + lastOrder.address,
       "State: " + lastOrder.state,
       "Colour: " + lastOrder.color,
